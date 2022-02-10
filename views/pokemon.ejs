@@ -1,0 +1,27 @@
+<%- include('template/cabecera', {tituloWeb: 'Pokemon' }) %>
+    <%- include('template/navbar') %>
+        <div class="container">
+            pokemon
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">nombre</th>
+                        <th scope="col">tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (arrayPokemon.length> 0) { %>
+                        <% arrayPokemon.forEach(pokemon=> { %>
+                            <tr>
+                                <td><%= pokemon.id%></td>
+                                <td><a href="pokemon/<%= pokemon.id%>"><%= pokemon.nombre%></a></td>
+                                <td><%= pokemon.tipo%></td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <%- include('template/footer') %>
