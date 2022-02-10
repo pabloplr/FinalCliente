@@ -1,0 +1,122 @@
+:root {
+    --main-bg-color: #320046;
+    --modal-bg-color: #180022;
+    --primary-color: #01d7f9;
+    --secondary-color: #bb00c2;
+}
+
+body {
+    background-color: var(--main-bg-color);
+}
+
+.activo {
+    text-decoration: underline;
+}
+
+footer {
+    margin-top: 100px;
+    background-color: var(--main-bg-color)!important;
+    border-top: 1px solid var(--secondary-color);
+    box-shadow: 0px -30px 35px -20px var(--secondary-color);
+}
+
+.navbar {
+    margin-bottom: 100px;
+    background-color: var(--main-bg-color)!important;
+    border-bottom: 1px solid var(--secondary-color);
+    box-shadow: 0px 17px 35px -20px var(--secondary-color);
+}
+
+a {
+    color: var(--primary-color)!important;
+}
+
+.carru .carousel-item {
+    height: 650px!important;
+    width: 625px!important;
+    border-radius: 20px;
+}
+
+.carousel-item img {
+    height: 650px!important;
+    width: 600px!important;
+    border-radius: 20px !important;
+}
+
+.carrusel_container {
+    border-radius: 20px;
+    height: 650px!important;
+    width: 600px!important;
+    /* box-shadow: 0px 17px 35px -20px var(--secondary-color); */
+    box-shadow: 0px 17px 115px -23px var(--secondary-color);
+}
+
+.row>* {
+    padding: 0px!important;
+}
+
+.bg_image_home {
+    background-image: url(../img/home_background.jpg)!important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.stat {
+    border: solid black 1px;
+    padding: 5px!important;
+    background-color: var(--main-bg-color);
+    border-radius: 10px;
+    border: solid 1px var(--secondary-color);
+}
+
+.golem-modal {
+    background-color: var(--modal-bg-color);
+    border: solid 1px var(--secondary-color);
+    border-radius: 10px;
+    color: white;
+    height: 700px;
+}
+
+.golem-modal h1 {
+    color: white;
+    text-align: center;
+}
+
+.golem-modal .type {
+    color: rgb(177, 177, 177);
+}
+
+.golem-modal .info {
+    color: white;
+}
+
+.golem-modal .percentage {
+    color: var(--secondary-color);
+}
+
+.golem-card {
+    background-color: var(--main-bg-color);
+    border: solid 1px var(--secondary-color);
+}
+
+.golem-col {
+    /* width: 400px; */
+}
+
+.modal-header-golem {
+    border-bottom: solid 1px var(--secondary-color);
+}
+
+.modal-footer-golems {
+    border-top: solid 1px var(--secondary-color);
+}
+
+
+/* -------------------------------------- */
+
+
+/* -------------------------------------- */
+
+
+/* -------------------------------------- */

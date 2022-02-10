@@ -26,18 +26,10 @@ mongoose.connect(uri,
 app.set('view engine', 'ejs'); //motor de plantillas
 app.set('views', __dirname+'/views');
 
-app.use(express.static(__dirname + '/public'));
-// app.get('/', (req, res) => {
-//   // res.send('Hello nada de nada!: ' + __dirname);
-//   res.render("index", {titulo: "mi titulo dinámico"});
-  
-// })
-// app.get('/contacto', (req, res) => {
-//   // res.send('Hello escattasdlñkjfas ñkj!');
-//   res.render("contacto", {titulo: "mi titulo contacto"});
-// })
+app.use(express.static(__dirname + '/public'));//mi raiz del proyecto es public
 //llamadas a rutas
 app.use('/',require('./router/rutas'));
+app.use('/golems',require('./router/golems'));
 app.use('/pokemon',require('./router/pokemon'));
 app.use((req,res)=>{
   res.status(404).render("404", {titulo: "error 001: "});

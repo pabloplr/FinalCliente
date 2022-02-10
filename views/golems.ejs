@@ -1,0 +1,62 @@
+<%- include('template/cabecera', {tituloWeb: 'Golems'}) %>
+<%- include('template/navbar') %>
+<h2 class="text-white">GALERIA DE GOLEMS</h2>
+<% console.log("letago "); %> 
+<% console.log("array golmes: ", array_golems); %> 
+<div class="album py-2">
+    <div class="container">
+        <div class="row g-3 justify-content-center">
+<% if (array_golems.length> 0) { %>
+    <% let id=001; %> 
+    <% array_golems.forEach( golem=> { %>
+        <% id++; %> 
+        <!-- card -->
+        <div class="col col-3 golem-col ms-3">
+            <div class="card shadow-sm golem-card">
+                <img src="<%= golem.link_img %> " alt="">
+                <div class="card-body">
+                    <p class="text-white card-text"><%= golem.name %> </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#golem_<%=golem._id  %>">
+                                <%= golem.price %>         
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="golem_<%=golem._id  %>" tabindex="-1" aria-hidden="true">
+            <!-- <div class="modal-dialog modal-lg"> -->
+            <div class="modal-dialog ">
+                <div class="modal-content golem-modal">
+                    <div class="modal-header modal-header-golem">
+                        <h5 class="modal-title" id="exampleModalLabel"><%=golem.name%> </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <h1>Attributes</h1>
+                    <div class="modal-body container d-grid gap-2">
+                        <div class="row gap-3 justify-content-center">
+                            <% golem.attributes.forEach(attr=> { %>
+                            <div class="stat col-3 p-5">
+                                <p class="type"><%= Object.keys(attr)%></p>
+                                <p class="info"><%= Object.values(attr)%></p>
+                            </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <div class="modal-footer modal-footer-golems">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                        <!-- <button id="btn_flip_to_front" type="button" class="btn btn-primary">ver golem</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+<% } %>
+
+        </div>
+    </div>
+</div>
+<%- include('template/footer') %>
