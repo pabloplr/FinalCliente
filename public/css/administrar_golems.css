@@ -1,0 +1,9 @@
+:root {
+    --main-bg-color: #320046;
+    --modal-bg-color: #180022;
+    --primary-color: #01d7f9;
+    --secondary-color: #bb00c2;
+}
+table, tr{
+    border: solid var(--secondary-color) 2px;
+}

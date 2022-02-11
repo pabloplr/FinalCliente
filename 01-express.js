@@ -30,6 +30,7 @@ app.use(express.static(__dirname + '/public'));//mi raiz del proyecto es public
 //llamadas a rutas
 app.use('/',require('./router/rutas'));
 app.use('/golems',require('./router/golems'));
+app.use('/administrar_golems',require('./router/administrar_golems'));
 app.use('/pokemon',require('./router/pokemon'));
 app.use((req,res)=>{
   res.status(404).render("404", {titulo: "error 001: "});

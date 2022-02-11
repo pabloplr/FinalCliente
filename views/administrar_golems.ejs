@@ -1,0 +1,77 @@
+<%- include('template/cabecera', {tituloWeb: 'Administrar golems'}) %>
+<%- include('template/navbar') %>
+<link rel="stylesheet" href="../css/administrar_golems.css" >
+    <h2 class="text-white" style="text-align: center;">administrar golems</h2>
+    <div class="container-fluid ">
+        <div class="row justify-content-center text-white">
+            <div class=" col col-6">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th class="text-white" scope="col">nombre</th>
+                        <th class="text-white" scope="col">precio</th>
+                        <th class="text-white" scope="col">ver img</th>
+                        <th class="text-white" scope="col">editar</th>
+                        <th class="text-white" scope="col">borrar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% if (array_golems.length> 0) { %>
+                            <% array_golems.forEach(golem=> { %>
+                                <tr>
+                                    <td class="text-white"><%= golem.name%></td>
+                                    <td class="text-white"><%= golem.price%></td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#golem_<%=golem._id  %>">
+                                            ver golem
+                                        </button>
+                                        <div class="modal fade" id="golem_<%=golem._id  %>" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content golem-modal">
+                                                <div class="modal-header modal-header-golem">
+                                                  <h5 class="modal-title" id="staticBackdropLabel"><%=golem.name %></h5>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body d-flex justify-content-center">
+                                                    <img width="450" height="450" src="<%=golem.link_img  %> " alt="">
+                                                </div>
+                                                <div class="modal-footer modal-footer-golems">
+                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><a href="">edit</a></td>
+                                    <td><a class="btn_eliminar" data-id="<%=golem._id %>" href="">delete</a></td>
+                                </tr>
+                            <% }) %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+<%- include('template/footer') %>
+<script>
+    const btnEliminar = document.querySelector('.btn_eliminar');
+    btnEliminar.addEventListener('click', async () => {
+        console.log(btnEliminar.dataset.id)
+        try {
+            // https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset
+            const data = await fetch(`/administrar_golems/${btnEliminar.dataset.id}`, {
+                method: 'delete'
+            })
+            const res = await data.json()
+            console.log(res)
+            if (res.estado) {
+                window.location.href = '/administrar_golems'
+            } else {
+                console.log(res)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    });
+</script>
