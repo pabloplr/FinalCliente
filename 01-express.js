@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 // const user = 'pablo_lopez';
 // const password = 'Q2eeKMI6K83JcmLA';
 // const dbname = 'bd_pokemon';
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0.cswbn.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`; //URL de conexión, que completaremos luego
+const uri = `mongodb+srv://pablo_lopez:${process.env.PASS}@cluster0.cswbn.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`; //URL de conexión, que completaremos luego
 
 mongoose.connect(uri,
   { useNewUrlParser: true, useUnifiedTopology: true }
@@ -26,11 +26,18 @@ mongoose.connect(uri,
 app.set('view engine', 'ejs'); //motor de plantillas
 app.set('views', __dirname+'/views');
 
-app.use(express.static(__dirname + '/public'));//mi raiz del proyecto es public
+app.use(express.static(__dirname + '/public'));
+// app.get('/', (req, res) => {
+//   // res.send('Hello nada de nada!: ' + __dirname);
+//   res.render("index", {titulo: "mi titulo dinámico"});
+  
+// })
+// app.get('/contacto', (req, res) => {
+//   // res.send('Hello escattasdlñkjfas ñkj!');
+//   res.render("contacto", {titulo: "mi titulo contacto"});
+// })
 //llamadas a rutas
 app.use('/',require('./router/rutas'));
-app.use('/golems',require('./router/golems'));
-app.use('/administrar_golems',require('./router/administrar_golems'));
 app.use('/pokemon',require('./router/pokemon'));
 app.use((req,res)=>{
   res.status(404).render("404", {titulo: "error 001: "});
