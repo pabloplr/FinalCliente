@@ -4,25 +4,24 @@ const Partido = require('../models/partido_model');
 const Equipo = require('../models/equipo_model');
 const sesion = require('../public/js/sesion.js');
 
+//al entrar en /lista_partidos
 router.get('/', async (req, res) => {
     try {
-        //Le pondremos arrayPokemonDB para diferenciar
-        //los datos que vienen de la base de datos
-        //con respecto al arrayPokemon que tenemos EN LA VISTA
         if(sesion.isLoged()){
-
             const listaPartidosDB = await Partido.find();
             console.log(listaPartidosDB);
             res.render("lista_partidos", { 
                 listaPartidos: listaPartidosDB
             })
         }else{
-            res.redirect('/login') //Volvemos al listado
+            res.redirect('/login')
         }
     } catch (error) {
         console.error(error)
     }
 })
+
+//al entrar en /crear_partido
 router.get('/crear_partido', async (req,res) =>{
     const equiposDB = await Equipo.find();
     if(sesion.isLoged()){
@@ -31,9 +30,11 @@ router.get('/crear_partido', async (req,res) =>{
             error: false
         });
     }else{
-        res.redirect('/login') //Volvemos al listado
+        res.redirect('/login')
     }    
 });
+
+//al entrar en /equipos
 router.get('/equipos', async (req,res) =>{
     const equiposDB = await Equipo.find();
     if(sesion.isLoged()){
@@ -42,59 +43,49 @@ router.get('/equipos', async (req,res) =>{
             error: false
         });
     }else{
-        res.redirect('/login') //Volvemos al listado
+        res.redirect('/login') 
     }    
 });
+
+// al añadir un partido
 router.post('/', async (req, res) => {
-    const body = req.body //Gracias al body parser, de esta forma
-    //podremos recuperar todo lo que viene del body
-    console.log(body) //Para comprobarlo por pantalla
+    const body = req.body 
     try {
-        let rodrigo = {
-            nombre: "pino",
-            tipo: "huele",
-            descripcion: "watafaa",
-            apodo: "rodrigo"
-        }
-        const partidosDB = new Partido(body) //Creamos un nuevo Pokemon, gracias al modelo
-        await partidosDB.save() //Lo guardamos con .save(), gracias a Mongoose
-        res.redirect('/lista_partidos') //Volvemos al listado
+        const partidosDB = new Partido(body)
+        await partidosDB.save()
+        res.redirect('/lista_partidos')
     } catch (error) {
         console.log('error', error)
     }
 })
-router.get('/:id', async(req, res) => { //El id vendrá por el GET (barra de direcciones)
-    const id = req.params.id //Recordemos que en la plantilla "pokemon.ejs" le pusimos
-    //a este campo pokemon.id, por eso lo llamados con params.id
+
+//al entrar en los detalles de un partido
+router.get('/:id', async(req, res) => {
+    const id = req.params.id
     try {
         const equiposDB = await Equipo.find();
-        const partidosDB = await Partido.findOne({ _id: id }) //_id porque así lo indica Mongo
-							//Esta variable “Pokemon” está definida arriba con el “require”
-        //Buscamos con Mongoose un único documento que coincida con el id indicado
-        console.log(partidosDB) //Para probarlo por consola
-        res.render('detalle_partido', { //Para mostrar el objeto en la vista "detalle", que tenemos que crear
+        const partidosDB = await Partido.findOne({ _id: id })
+        res.render('detalle_partido', {
             partido: partidosDB,
             equipos: equiposDB,
             error: false
         })
     } catch (error) { //Si el id indicado no se encuentra
         console.log('Se ha producido un error', error)
-        res.render('detalle_partido', { //Mostraremos el error en la vista "detalle"
+        res.render('detalle_partido', {
             error: true,
             mensaje: 'Partido no encontrado!'
         })
     }
 })
+
+// al pulsar en borrar en os detalles de un partido
 router.delete('/:id', async (req, res) => {
     const id = req.params.id;
     console.log('id desde backend', id)
     try {
-        //En la documentación de Mongoose podremos encontrar la
-        //siguiente función para eliminar
         const partidos_DB = await Partido.findByIdAndDelete({ _id: id });
         console.log(partidos_DB)
-        // https://stackoverflow.com/questions/27202075/expressjs-res-redirect-not-working-as-expected
-        // res.redirect('/pokemon') //Esto daría un error, tal y como podemos ver arriba
         if (!partidos_DB) {
             res.json({ 
                 estado: false,
@@ -110,6 +101,9 @@ router.delete('/:id', async (req, res) => {
         console.log(error)
     }
 });
+
+
+//  al editar un partido
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const body = req.body;

@@ -1,14 +1,6 @@
 let sesion = false;
 
-// const setLog = function (){
-//     sesion = true;
-// }
-// const isLoged = function(){
-//     return sesion;
-// };
-
 module.exports = {
-    // sesion: false,
     setLog: function() {
         sesion = true;
     },
@@ -17,6 +9,5 @@ module.exports = {
     },
     setLogout: function() {
         sesion = false;
-    }
-     
+    }     
  }

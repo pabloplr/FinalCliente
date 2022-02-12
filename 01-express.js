@@ -8,12 +8,6 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 app.use(bodyParser.urlencoded({ xtended: false}));
 app.use(bodyParser.json());
-//Variables que tendremos siempre:
-//Lo correcto será declararlas EN VARIABLES DE ENTORNO
-//para que nadie vea directamente nuestras credencialesd
-// const user = 'pablo_lopez';
-// const password = 'Q2eeKMI6K83JcmLA';
-// const dbname = 'bd_pokemon';
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0.cswbn.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`; //URL de conexión, que completaremos luego
 
 mongoose.connect(uri,
@@ -23,10 +17,13 @@ mongoose.connect(uri,
   .catch(e => console.log(e))
 
 
-app.set('view engine', 'ejs'); //motor de plantillas
+//motor de plantillas
+app.set('view engine', 'ejs'); 
+
 app.set('views', __dirname+'/views');
 
 app.use(express.static(__dirname + '/public'));
+
 //llamadas a rutas
 app.use('/',require('./router/rutas'));
 app.use('/lista_partidos',require('./router/partidos'));
@@ -35,10 +32,7 @@ app.use('/logout',require('./router/logout'));
 app.use('/equipos',require('./router/equipos'));
 app.use((req,res)=>{
   res.status(404).render("404", {titulo: "error 001: "});
-    // res.status(404).sendFile(__dirname + "/public/404.html");
 });
-// app.use(express.static('public'));
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 })
-//<zadf

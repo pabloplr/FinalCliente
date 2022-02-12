@@ -7,7 +7,6 @@ const usuarioSchema = new Schema({
     pass: String
 })
 
-//Creamos el modelo
 const Usuario = mongoose.model('users', usuarioSchema, "users");
 
 module.exports = Usuario;

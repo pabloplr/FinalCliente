@@ -9,7 +9,6 @@ const partidoSchema = new Schema({
     res_equipo2: String
 })
 
-//Creamos el modelo
 const Partido = mongoose.model('partidos', partidoSchema, "partidos");
 
 module.exports = Partido;
