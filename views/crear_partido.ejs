@@ -1,0 +1,27 @@
+<%- include('template/cabecera', {tituloWeb: 'Crear partido'}) %>
+<%- include('template/navbar') %>
+    <div class="container">
+        <h1>Añadir nuevo partido</h1>
+        <form action="/lista_partidos" class="my-2" method="POST">
+            <select class="form-select" aria-label="Default select example" name="equipo1">
+                <% if (equipos.length> 0) { %>
+                    <% equipos.forEach(equipo=> { %>
+                            <option value="<%=equipo.nombre  %> " selected><%=equipo.nombre  %></option>
+                    <% }) %>
+                <% } %>
+            </select>
+            <select class="form-select" aria-label="Default select example" name="equipo2">
+                <% if (equipos.length> 0) { %>
+                    <% equipos.forEach(equipo=> { %>
+                            <option value="<%=equipo.nombre  %> "><%=equipo.nombre  %></option>
+                    <% }) %>
+                <% } %>
+            </select>
+            <input type="text" placeholder="res_equipo1" class="form-control my-2" name="res_equipo1">
+            <input type="text" placeholder="res_equipo2" class="form-control my-2" name="res_equipo2">
+            <button type="submit" class="btn btn-dark btn-block">
+                Agregar
+            </button>
+        </form>
+    </div>
+<%- include('template/footer') %>

@@ -1,0 +1,44 @@
+<%- include('template/cabecera', {tituloWeb: 'detalles equipo' }) %>
+    <%- include('template/navbar') %>
+        
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-3">
+            <form  action="/login" method="POST" class="my-2">
+                    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+                    <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="usuario" name="user">
+                    <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingPassword" placeholder="Password" name="pass">
+                    <label for="floatingPassword">Password</label>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                </form>
+        </div>
+    </div>
+    </div>
+    <!-- <script>
+        const formEditar = document.querySelector('#comprobar');
+        formEditar.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const user = formEditar.elements['user'].value
+            const pass = formEditar.elements['pass'].value
+            // const id = formEditar.dataset.id
+            const data = await fetch(`/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user, pass })
+            })
+            const res = await data.json()
+            if (res.estado) {
+                window.location.href = '/login'
+            } else {
+                console.log(res)
+            }
+        })
+    </script> -->
+<%- include('template/footer') %>

@@ -1,0 +1,81 @@
+<%- include('template/cabecera', {tituloWeb: 'detalles partido' }) %>
+    <%- include('template/navbar') %>
+        <% if (!error) { %>
+            <form id="editar" action="editar" data-id="<%= partido.id %>">
+                <select class="form-select" aria-label="Default select example" name="equipo1">
+                    <% if (equipos.length> 0) { %>
+                        <% equipos.forEach(equipo=> { %>
+                            <% if(equipo.nombre.trim() == partido.equipo1.trim()){%> 
+                                <option value="<%=equipo.nombre  %> " selected><%=equipo.nombre  %></option>
+                            <% } else { %>
+                                <option value="<%=equipo.nombre  %> "><%=equipo.nombre  %></option>
+                            <% } %>
+                        <% }) %>
+                    <% } %>
+                </select>
+                <select class="form-select" aria-label="Default select example" name="equipo2">
+                    <% if (equipos.length> 0) { %>
+                        <% equipos.forEach(equipo=> { %>
+                            <% if(equipo.nombre.trim() == partido.equipo2.trim()){%> 
+                                <option value="<%=equipo.nombre  %> " selected><%=equipo.nombre  %></option>
+                            <% } else { %>
+                                <option value="<%=equipo.nombre  %> "><%=equipo.nombre  %></option>
+                            <% } %>
+                        <% }) %>
+                    <% } %>
+                </select>
+                <input type="text" value="<%=partido.res_equipo1%>" class="form-control my-2" name="res_equipo1">
+                <input type="text" value="<%=partido.res_equipo2%>" class="form-control my-2" name="res_equipo2">
+                <button  type="submit" class="btn btn-dark btn-block">
+                    Editar partido
+                </button>
+            </form>
+            <hr>
+            <button class="btn btn-danger btn-sm" data-id="<%= partido.id %>">
+                Eliminar partido
+            </button>
+            <% } %>
+                <%- include('template/footer') %>
+                    <script>
+                        const btnEliminar = document.querySelector('.btn-danger');
+                        btnEliminar.addEventListener('click', async () => {
+                            console.log(btnEliminar.dataset.id)
+                            try {
+                                // https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset
+                                const data = await fetch(`/lista_partidos/${btnEliminar.dataset.id}`, {
+                                    method: 'delete'
+                                })
+                                const res = await data.json()
+                                console.log(res)
+                                if (res.estado) {
+                                    window.location.href = '/lista_partidos'
+                                } else {
+                                    console.log(res)
+                                }
+                            } catch (error) {
+                                console.log(error)
+                            }
+                        });
+                        const formEditar = document.querySelector('#editar');
+                        formEditar.addEventListener('submit', async (e) => {
+                            e.preventDefault()
+                            const equipo1 = formEditar.elements['equipo1'].value
+                            const equipo2 = formEditar.elements['equipo2'].value
+                            const res_equipo1 = formEditar.elements['res_equipo1'].value
+                            const res_equipo2 = formEditar.elements['res_equipo2'].value
+                            const id = formEditar.dataset.id
+                            const data = await fetch(`/lista_partidos/${id}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ equipo1, equipo2, res_equipo1, res_equipo2 })
+                            })
+                            const res = await data.json()
+                            if (res.estado) {
+                                window.location.href = '/lista_partidos'
+                            } else {
+                                console.log(res)
+                            }
+                        })
+                    </script>

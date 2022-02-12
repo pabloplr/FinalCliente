@@ -1,23 +1,20 @@
-<%- include('template/cabecera', {tituloWeb: 'detalles pokemon' }) %>
+<%- include('template/cabecera', {tituloWeb: 'detalles equipo' }) %>
     <%- include('template/navbar') %>
         <% if (!error) { %>
-            <form id="editar" data-id="<%= pokemon.id %>">
-                <input type="text" value="<%= pokemon.nombre %>" class="form-control my-2" name="nombre"
-                    id="nombreInput">
-                <input type="text" value="<%= pokemon.tipo %>" class="form-control my-2" name="tipo" id="tipoInput">
-                <input type="text" value="<%= pokemon.descripcion %>" class="form-control my-2" name="descripcion"
-                    id="descripcionInput">
-                <button class="btn btn-warning btn-sm" type="submit">
-                    Editar
-                </button>
-            </form>
+            <div class="container">
+                <h1>Añadir nuevo equipo</h1>
+                <form id="editar" action="editar" class="my-2" data-id="<%= equipo.id %>">
+                    <input type="text" placeholder="nombre equipo" class="form-control my-2" name="nombre" value="<%= equipo.nombre %> ">
+                    <button type="submit" class="btn btn-dark btn-block">
+                        editar equipo
+                    </button>
+                </form>
+            </div>
             <hr>
-            <button class="btn btn-danger btn-sm" data-id="<%= pokemon.id %>">
-                Eliminar
+            <button class="btn btn-danger btn-sm" data-id="<%= equipo.id %>">
+                Eliminar equipo
             </button>
             <% } %>
-
-
                 <%- include('template/footer') %>
                     <script>
                         const btnEliminar = document.querySelector('.btn-danger');
@@ -25,13 +22,13 @@
                             console.log(btnEliminar.dataset.id)
                             try {
                                 // https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset
-                                const data = await fetch(`/pokemon/${btnEliminar.dataset.id}`, {
+                                const data = await fetch(`/equipos/${btnEliminar.dataset.id}`, {
                                     method: 'delete'
                                 })
                                 const res = await data.json()
                                 console.log(res)
                                 if (res.estado) {
-                                    window.location.href = '/pokemon'
+                                    window.location.href = '/equipos'
                                 } else {
                                     console.log(res)
                                 }
@@ -43,19 +40,17 @@
                         formEditar.addEventListener('submit', async (e) => {
                             e.preventDefault()
                             const nombre = formEditar.elements['nombre'].value
-                            const tipo = formEditar.elements['tipo'].value
-                            const descripcion = formEditar.elements['descripcion'].value
                             const id = formEditar.dataset.id
-                            const data = await fetch(`/pokemon/${id}`, {
+                            const data = await fetch(`/equipos/${id}`, {
                                 method: 'PUT',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
-                                body: JSON.stringify({ nombre, tipo, descripcion })
+                                body: JSON.stringify({ nombre })
                             })
                             const res = await data.json()
                             if (res.estado) {
-                                window.location.href = '/pokemon'
+                                window.location.href = '/equipos'
                             } else {
                                 console.log(res)
                             }

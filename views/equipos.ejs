@@ -1,0 +1,35 @@
+<%- include('template/cabecera', {tituloWeb: 'listado partidos'}) %>
+<%- include('template/navbar') %>
+    <div class="container">
+        <h1>Lista Partidos</h1>
+        <div class="container">
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Partidos</th>
+                        <th scope="col">Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (equipos.length> 0) { %>
+                        <% equipos.forEach(equipo=> { %>
+                            <tr>
+                                <td><%= equipo.nombre %></td>
+                                <td><a href="equipos/<%= equipo.id%>">editar</a></td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Añadir nuevo equipo</h1>
+        <form action="/equipos" class="my-2" method="POST">
+            <input type="text" placeholder="nombre equipo" class="form-control my-2" name="nombre">
+            <button type="submit" class="btn btn-dark btn-block">
+                Agregar equipo
+            </button>
+        </form>
+    </div>
+<%- include('template/footer') %>

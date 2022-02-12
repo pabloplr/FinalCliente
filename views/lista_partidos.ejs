@@ -1,0 +1,26 @@
+<%- include('template/cabecera', {tituloWeb: 'listado partidos'}) %>
+<%- include('template/navbar') %>
+    <div class="container">
+        <h1>Lista Partidos</h1>
+        <div class="container">
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Partidos</th>
+                        <th scope="col">Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (listaPartidos.length> 0) { %>
+                        <% listaPartidos.forEach(partido=> { %>
+                            <tr>
+                                <td><%= partido.equipo1 %> <%= partido.res_equipo1 %> - <%= partido.res_equipo2 %> <%= partido.equipo2 %></td>
+                                <td><a href="lista_partidos/<%= partido.id%>">editar</a></td>
+                            </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<%- include('template/footer') %>
